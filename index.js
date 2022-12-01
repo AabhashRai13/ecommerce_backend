@@ -23,9 +23,7 @@ mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log(err);
 });
 app.use(express.json());
-app.get("/api/test", ()=>{
-    console.log("test is successfull");
-})
+
 ///auth api
 app.use("/api/auth", authRoute);
 /// user api
