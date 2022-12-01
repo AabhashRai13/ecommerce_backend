@@ -9,6 +9,7 @@ const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
 
 
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGO_URL).then(()=>{
@@ -35,4 +36,3 @@ app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
 //order api
 app.use("/api/orders", orderRoute);
-
