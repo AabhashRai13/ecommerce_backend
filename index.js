@@ -31,6 +31,6 @@ app.use("/api/users", userRoute);
 // products api
 app.use("/api/products", productRoute);
 //cart api
-// app.use("/api/cart", cartRoute);
+app.use("/api/cart", cartRoute);
 //order api
 app.use("/api/orders", orderRoute);
