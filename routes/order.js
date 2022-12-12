@@ -113,8 +113,28 @@ router.get("/", verifyToken, async (req, res) => {
   const owner = req.user.id;
 
   try {
-    const cart = await Order.find({ userId: owner });
-    res.status(200).json(cart);
+     await Order.find({ userId: owner })    .exec()
+    .then(docs => {
+      res.status(200).json({
+        count: docs.length,
+        orders: docs.map(doc => {
+          return {
+            _id: doc._id,
+            product: doc.product,
+            quantity: doc.quantity,
+            request: {
+              type: "GET",
+              url: "http://localhost:8000/orders/" + doc._id
+            }
+          };
+        })
+      });
+    })  .catch(err => {
+      res.status(500).json({
+        error: err
+      });
+    });
+   
   }
   catch (err) {
     res.status(500).json(err);
