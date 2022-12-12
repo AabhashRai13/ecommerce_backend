@@ -19,6 +19,7 @@ router.post("/", verifyToken, async (req, res) => {
     }
     const price = item.price;
     const name = item.title;
+    const img= item.img;
     //If cart already exists for user,
     if (cart) {
       const itemIndex = cart.items.findIndex((item) => item.itemId == itemId);
@@ -36,7 +37,7 @@ router.post("/", verifyToken, async (req, res) => {
         await cart.save();
         res.status(200).send(cart);
       } else {
-        cart.items.push({ itemId, name, quantity, price });
+        cart.items.push({ itemId, name, quantity, price,img });
         cart.bill = cart.items.reduce((acc, curr) => {
           return acc + curr.quantity * curr.price;
         }, 0)
@@ -48,7 +49,7 @@ router.post("/", verifyToken, async (req, res) => {
       //no cart exists, create one
       const newCart = await Cart.create({
         owner,
-        items: [{ itemId, name, quantity, price }],
+        items: [{ itemId, name, quantity, price, img }],
         bill: quantity * price,
       });
       return res.status(201).send(newCart);
