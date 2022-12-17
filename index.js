@@ -7,10 +7,10 @@ const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
 const orderRoute = require("./routes/order");
+const pushNotificationRouter = require("./routes/push-notification")
 
 
-
-dotenv.config();
+dotenv.config(); 
 
 mongoose.connect(process.env.MONGO_URL).then(()=>{
     console.log("DB connection successfull");
@@ -34,3 +34,6 @@ app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
 //order api
 app.use("/api/orders", orderRoute);
+
+//push notification api
+app.use("/api/push-notification", pushNotificationRouter);
